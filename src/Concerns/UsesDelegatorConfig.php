@@ -50,16 +50,21 @@ trait UsesDelegatorConfig
 
     protected function determineWhichCandidateIsBeingUsedAsTenant()
     {
+        $candidates = config('delegator.candidates');
+
+        if(!is_array($candidates) || count($candidates) === 0) {
+            return null;
+        }
+
         if($tenant = config('delegator.tenant')) {
-            if(!array_key_exists(config('delegator.candidates'), $tenant)) {
+            if(!array_key_exists($tenant, $candidates)) {
                 throw InvalidConfiguration::tenantSetToUnconfiguredCandidate($tenant);
             }
             return $tenant;
         }
 
         return Arr::first(
-            array_keys(config('delegator.candidates')
+            array_keys($candidates
         ));
     }
-
 }

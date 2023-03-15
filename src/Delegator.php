@@ -27,13 +27,16 @@ class Delegator
 
     protected function configureQueue(): self
     {
-        $this
-        ->getDelegatorActionClass(
-            candidateConfigKey: $this->determineWhichCandidateIsBeingUsedAsTenant(),
-            actionName: 'make_queue_tenant_aware_action',
-            actionClass: MakeQueueTenantAwareAction::class
-        )
-        ->execute();
+        if($tenant = $this->determineWhichCandidateIsBeingUsedAsTenant())
+        {
+            $this
+                ->getDelegatorActionClass(
+                    candidateConfigKey: $tenant,
+                    actionName: 'make_queue_tenant_aware_action',
+                    actionClass: MakeQueueTenantAwareAction::class
+                    )
+                    ->execute();
+            }
 
         return $this;
     }
