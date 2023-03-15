@@ -1,0 +1,55 @@
+<?php
+
+namespace Inmanturbo\Delegator\Commands\Concerns;
+
+use Illuminate\Support\Arr;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
+
+trait CandidateAware
+{
+
+    protected $candidateConfigKey;
+
+    protected function execute(InputInterface $input, OutputInterface $output)
+    {
+        $candidateConfigKeys = $this->argument('candidateKey') ? 
+            Arr::wrap($this->argument('candidateKey')) : 
+            array_keys(config('delegator.candidates'));
+        
+        $candidates = Arr::wrap($this->option('candidates'));
+
+        return collect($candidateConfigKeys)
+            ->map(fn ($candidateConfigKey) => $this->executeForCandidate($candidateConfigKey, $candidates))
+            ->sum();
+    }
+
+    protected function executeForCandidate($candidateConfigKey, $candidates)
+    {
+        $this->candidateKey = $candidateConfigKey;
+
+        $candidateQuery = $this->getCandidateModel($candidateConfigKey)::query()
+            ->when(! blank($candidates), function ($query) use ($candidates) {
+                collect($this->getTenantArtisanSearchFields())
+                    ->each(fn ($field) => $query->orWhereIn($field, $candidates));
+            });
+
+        if ($candidateQuery->count() === 0) {
+            $this->error('No candidates(s) found.');
+
+            return -1;
+        }
+
+        return $candidateQuery
+            ->cursor()
+            ->map(fn ($candidate) => $candidate->execute(fn () => (int) $this->laravel->call([$this, 'handle'])))
+            ->sum();
+    }
+
+    protected function getCandidateModel($candidateConfigKey): string
+    {
+        return config("delegator.candidates.{$candidateConfigKey}.model");
+    }
+
+
+}
