@@ -19,7 +19,7 @@ trait HasCandidateMethods
 
         static::forgetCurrent();
 
-        $tasks = $this->getRawTasks();
+        $tasks = $this->getRawSwitchCandidateTasks();
 
         $this
             ->getDelegatorActionClass(
@@ -33,7 +33,7 @@ trait HasCandidateMethods
         return $this;
     }
 
-    protected static function getRawTasks(): array
+    protected static function getRawSwitchCandidateTasks(): array
     {
         $candidateConfigKey = static::getCandidateConfigKey();
 
@@ -51,6 +51,11 @@ trait HasCandidateMethods
         }
 
         return app($currentCandidateContainerKey);
+    }
+
+    public static function checkCurrent(): bool
+    {
+        return static::current() !== null;
     }
 
     public function isCurrent(): bool
@@ -83,7 +88,7 @@ trait HasCandidateMethods
                 candidateConfigKey: static::getCandidateConfigKey(),
                 actionName: 'forget_current_candidate_action',
                 actionClass: ForgetCurrentCandidateAction::class,
-                tasks: static::getRawTasks(),
+                tasks: static::getRawSwitchCandidateTasks(),
             )
             ->execute($this);
 
@@ -101,5 +106,10 @@ trait HasCandidateMethods
                 ? $originalCurrentTenant->makeCurrent()
                 : static::forgetCurrent();
         });
+    }
+
+    public function callback(callable $callable): \Closure
+    {
+        return fn () => $this->execute($callable);
     }
 }

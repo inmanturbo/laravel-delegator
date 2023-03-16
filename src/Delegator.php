@@ -84,7 +84,13 @@ class Delegator
     {
         $this->app->bind(
             abstract: Tenant::class, 
-            concrete: fn () => $this->app['config']['delegator']['candidates'][$this->determineWhichCandidateIsBeingUsedAsTenant()]['model'],
+            concrete: fn () => new (
+                $this->app['config']
+                ['delegator']
+                ['candidates']
+                [$this->determineWhichCandidateIsBeingUsedAsTenant()]
+                ['model']
+            ),
             shared: false
         );
 

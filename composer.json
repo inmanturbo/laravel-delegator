@@ -42,7 +42,8 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Inmanturbo\\Delegator\\Tests\\": "tests"
+            "Inmanturbo\\Delegator\\Tests\\": "tests",
+            "Inmanturbo\\Delegator\\Tests\\Database\\Factories\\": "tests/database/factories"
         }
     },
     "scripts": {

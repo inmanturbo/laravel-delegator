@@ -32,8 +32,8 @@ class TestCase extends Orchestra
 
         config()->set('database.connections.team_sqlite', [
             'driver' => 'sqlite',
-            'database' => null,
-            'prefix' => '',
+            'database' => ':memory:',
+            'prefix' => 'team_',
         ]);
 
         config()->set('database.connections.delegator', [
@@ -117,10 +117,10 @@ class TestCase extends Orchestra
 
     protected function migrateDb(): self
     {
-        $delegatorMogrationsPath = realpath(__DIR__.'/../database/migrations/delegator');
+        $delegatorMigrationsPath = realpath(__DIR__.'/database/migrations/delegator');
 
         $this
-            ->artisan("migrate --database=delegator --path={$delegatorMogrationsPath} --realpath")
+            ->artisan("migrate --database=delegator --path={$delegatorMigrationsPath} --realpath")
             ->assertExitCode(0);
 
         return $this;

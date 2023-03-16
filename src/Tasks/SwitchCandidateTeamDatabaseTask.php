@@ -4,10 +4,9 @@ namespace Inmanturbo\Delegator\Tasks;
 
 use Inmanturbo\Delegator\Contracts\SwitchCandidateTask;
 use Inmanturbo\Delegator\Models\Contracts\CandidateModel;
-
 class SwitchCandidateTeamDatabaseTask implements SwitchCandidateTask
 {
-    public function makeCurrent(CandidateModel $model): void
+    public function makeCurrent($model): void
     {
         $model->teamDatabase->makeCurrent();
     }
@@ -16,6 +15,10 @@ class SwitchCandidateTeamDatabaseTask implements SwitchCandidateTask
     {
         $model = config("delegator.candidates.{$candidateConfigKey}.model");
 
-        (new $model)->teamDatabase()->forgetCurrent();
+        $current = (new $model)
+            ->teamDatabase()
+            ->getRelated()
+            ->forgetCurrent();
+
     }
 }
