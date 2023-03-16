@@ -26,10 +26,10 @@ class DelegatorServiceProvider extends PackageServiceProvider
 
     public function packageBooted(): void
     {
-        $this->app->bind(Delegator::class, fn ($app) => new Delegator($app));
+        $this->app->bind(Delegation::class, fn ($app) => new Delegation($app));
 
         if (! isset($_SERVER['LARAVEL_OCTANE'])) {
-            app(Delegator::class)->start();
+            app(Delegation::class)->start();
 
             return;
         }
