@@ -8,6 +8,7 @@ use Inmanturbo\Delegator\Events\ForgettingCurrentCandidateEvent;
 use Inmanturbo\Delegator\Events\ForgettingCurrentTenantEvent;
 use Inmanturbo\Delegator\Events\ForgotCurrentCandidateEvent;
 use Inmanturbo\Delegator\Events\ForgotCurrentTenantEvent;
+use Inmanturbo\Delegator\Models\Contracts\CandidateModel;
 use Inmanturbo\Delegator\Tasks\TasksCollection;
 
 class ForgetCurrentCandidateAction
@@ -22,7 +23,7 @@ class ForgetCurrentCandidateAction
         $this->tasksCollection = new TasksCollection($tasks);
     }
 
-    public function execute($candidate)
+    public function execute(CandidateModel $candidate)
     {
         $candidateConfigKey = $candidate::getCandidateConfigKey();
 
@@ -46,7 +47,7 @@ class ForgetCurrentCandidateAction
         return $this;
     }
 
-    protected function clearBoundCurrentCandidate($candidate)
+    protected function clearBoundCurrentCandidate(CandidateModel $candidate)
     {
         $candidateConfigKey = $candidate::getCandidateConfigKey();
 

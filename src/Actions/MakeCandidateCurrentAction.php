@@ -23,7 +23,7 @@ class MakeCandidateCurrentAction
         $this->tasksCollection = new TasksCollection($tasks);
     }
 
-    public function execute($candidate)
+    public function execute(CandidateModel $candidate)
     {
         $candidate->getCandidateConfigKey() === $this->determineWhichCandidateIsBeingUsedAsTenant()
             ? event(new MakingTenantCurrentEvent($candidate))
@@ -41,14 +41,14 @@ class MakeCandidateCurrentAction
         return $this;
     }
 
-    protected function performTasksToMakeCandidateCurrent($candidate): self
+    protected function performTasksToMakeCandidateCurrent(CandidateModel $candidate): self
     {
         $this->tasksCollection->each(fn (SwitchCandidateTask $task) => $task->makeCurrent($candidate));
 
         return $this;
     }
 
-    protected function bindAsCurrentCandidate($candidate): self
+    protected function bindAsCurrentCandidate(CandidateModel $candidate): self
     {
         $candidateConfigKey = $candidate::getCandidateConfigKey();
 

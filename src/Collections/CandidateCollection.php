@@ -3,6 +3,7 @@
 namespace Inmanturbo\Delegator\Collections;
 
 use Illuminate\Database\Eloquent\Collection;
+use Inmanturbo\Delegator\Models\Contracts\CandidateModel;
 
 class CandidateCollection extends Collection
 {
@@ -40,7 +41,7 @@ class CandidateCollection extends Collection
 
     protected function performCollectionMethodWhileMakingCandidatesCurrent(string $operation, callable $callable): self
     {
-        $collection = $this->$operation(fn ($candidate) => $candidate->execute($callable));
+        $collection = $this->$operation(fn (CandidateModel $candidate) => $candidate->execute($callable));
 
         return new static($collection->items);
     }

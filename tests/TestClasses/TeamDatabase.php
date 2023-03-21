@@ -6,8 +6,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Inmanturbo\Delegator\Models\Concerns\HasCandidateMethods;
 use Inmanturbo\Delegator\Models\Concerns\UsesDelegatorConnection;
+use Inmanturbo\Delegator\Models\Contracts\CandidateModel;
 
-class TeamDatabase extends Model
+class TeamDatabase extends Model implements CandidateModel
 {
     use HasFactory, HasCandidateMethods, UsesDelegatorConnection;
 
