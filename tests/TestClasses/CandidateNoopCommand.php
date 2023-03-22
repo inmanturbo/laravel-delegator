@@ -9,7 +9,7 @@ class CandidateNoopCommand extends Command
 {
     use CandidateAware;
 
-    protected $signature = 'candidate:noop {candidateConfigKey=team_database} {--candidates=*}';
+    protected $signature = 'candidate:noop {candidateConfigKey=team_database} {--candidate=*}';
 
     protected $description = 'Execute noop for candidate(s)';
 

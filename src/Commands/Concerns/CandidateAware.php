@@ -19,7 +19,7 @@ trait CandidateAware
             Arr::wrap($this->argument('candidateConfigKey')) : 
             array_keys(config('delegator.candidates'));
         
-        $candidates = Arr::wrap($this->option('candidates'));
+        $candidates = Arr::wrap($this->option('candidate'));
 
         return collect($candidateConfigKeys)
             ->map(fn ($candidateConfigKey) => $this->executeForCandidate($candidateConfigKey, $candidates))

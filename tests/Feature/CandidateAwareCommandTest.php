@@ -20,7 +20,7 @@ afterEach(function () {
 });
 
 it('fails with a non-existing candidate')
-    ->artisan('candidate:noop team_database --candidates=1000')
+    ->artisan('candidate:noop team_database --candidate=1000')
     ->assertExitCode(-1)
     ->expectsOutput('No candidates(s) found.');
 

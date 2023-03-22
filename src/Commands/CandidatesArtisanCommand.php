@@ -16,7 +16,7 @@ class CandidatesArtisanCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'candidates:artisan {artisanCommand} {candidateConfigKey?} {--candidates=*}';
+    protected $signature = 'candidates:artisan {artisanCommand} {candidateConfigKey?} {--candidate=*}';
 
     /**
      * The console command description.

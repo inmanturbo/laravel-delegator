@@ -29,7 +29,7 @@ it('can migrate all candidate databases', function () {
 });
 
 it('can migrate a specific candidate', function () {
-    $this->artisan('candidates:artisan migrate team_database --candidates="' . $this->anotherTenant->id . '"')->assertExitCode(0);
+    $this->artisan('candidates:artisan migrate team_database --candidate="' . $this->anotherTenant->id . '"')->assertExitCode(0);
 
     assertCandidateDatabaseDoesNotHaveTable($this->tenant, 'migrations');
     assertCandidateDatabaseHasTable($this->anotherTenant, 'migrations');
