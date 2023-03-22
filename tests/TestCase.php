@@ -2,9 +2,11 @@
 
 namespace Inmanturbo\Delegator\Tests;
 
+use Illuminate\Console\Application as Artisan;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Orchestra\Testbench\TestCase as Orchestra;
 use Inmanturbo\Delegator\DelegatorServiceProvider;
+use Inmanturbo\Delegator\Tests\TestClasses\CandidateNoopCommand;
 
 class TestCase extends Orchestra
 {
@@ -21,9 +23,22 @@ class TestCase extends Orchestra
 
     protected function getPackageProviders($app)
     {
+        $this->bootCommands();
+
         return [
             DelegatorServiceProvider::class,
         ];
+    }
+
+    protected function bootCommands(): self
+    {
+        Artisan::starting(function ($artisan) {
+            $artisan->resolveCommands([
+                CandidateNoopCommand::class,
+            ]);
+        });
+
+        return $this;
     }
 
     public function getEnvironmentSetUp($app)
