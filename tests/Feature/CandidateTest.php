@@ -9,6 +9,7 @@ use Inmanturbo\Delegator\Events\MadeCandidateCurrentEvent;
 use Inmanturbo\Delegator\Events\MadeTenantCurrentEvent;
 use Inmanturbo\Delegator\Events\MakingCandidateCurrentEvent;
 use Inmanturbo\Delegator\Events\MakingTenantCurrentEvent;
+use Inmanturbo\Delegator\Models\Contracts\CandidateModel;
 use Inmanturbo\Delegator\Models\Contracts\Tenant;
 use Inmanturbo\Delegator\Tests\TestClasses\Team;
 use Inmanturbo\Delegator\Tests\TestClasses\TeamDatabase;
@@ -31,20 +32,6 @@ it('can get a current candidate', function () {
     expect(TeamDatabase::current())->toBe($this->candidate);
 });
 
-it('can get the current tenant', function () {
-    expect($this->tenant)->toBeInstanceOf(Tenant::class);
-
-    expect($this->candidate)->not()->toBeInstanceOf(Tenant::class);
-
-    expect(app(Tenant::class)->current())->toBeNull();
-
-    $this->tenant->makeCurrent();
-
-    $this->candidate->makeCurrent();
-
-    expect(app(Tenant::class)->current())->toBe($this->tenant);
-    expect(app(Tenant::class)->current())->not()->toBe($this->candidate);
-});
 
 it('will bind a current candidate to the container', function () {
 
@@ -115,18 +102,6 @@ it('will fire off events when making a candidate current', function () {
     Event::assertDispatched(MadeCandidateCurrentEvent::class);
 });
 
-it('will fire off events when making a tenant current', function () {
-    Event::fake();
-
-    Event::assertNotDispatched(MakingTenantCurrentEvent::class);
-    Event::assertNotDispatched(MadeTenantCurrentEvent::class);
-
-    $this->tenant->makeCurrent();
-
-    Event::assertDispatched(MakingTenantCurrentEvent::class);
-    Event::assertDispatched(MadeTenantCurrentEvent::class);
-});
-
 it('will fire off events when forgetting the current candidate', function() {
     Event::fake();
 
@@ -139,29 +114,6 @@ it('will fire off events when forgetting the current candidate', function() {
 
     Event::assertDispatched(ForgettingCurrentCandidateEvent::class);
     Event::assertDispatched(ForgotCurrentCandidateEvent::class);
-});
-
-it('will fire off events when forgetting the current tenant', function() {
-    Event::fake();
-
-    $this->tenant->makeCurrent();
-
-    Event::assertNotDispatched(ForgettingCurrentTenantEvent::class);
-    Event::assertNotDispatched(ForgotCurrentTenantEvent::class);
-
-    Team::forgetCurrent();
-
-    Event::assertDispatched(ForgettingCurrentTenantEvent::class);
-    Event::assertDispatched(ForgotCurrentTenantEvent::class);
-});
-
-it('will not fire off events when forgetting the current tenant when not current tenant is set', function() {
-    Event::fake();
-
-    app(Tenant::class)->forgetCurrent();
-
-    Event::assertNotDispatched(ForgettingCurrentTenantEvent::class);
-    Event::assertNotDispatched(ForgotCurrentTenantEvent::class);
 });
 
 it('will not fire off events when forgetting a current candidate when not current candidate is set', function() {
@@ -190,22 +142,23 @@ it('will execute a callable and then restore the previous state', function () {
 });
 
 it('will execute a delayed callback in tenant context', function () {
-    $tenant = app(Tenant::class);
 
-    $tenant->forgetCurrent();
+    $this->candidate->makeCurrent();
+    $this->candidate->forgetCurrent();
 
-    expect($tenant->current())->toBeNull();
+    expect($this->candidate->current())->toBeNull();
 
-    $callback = $this->tenant->callback(function (Tenant $tenant) {
-        expect($tenant->current()->id)->toEqual($tenant->id);
+    $callback = $this->candidate->callback(function (CandidateModel $candidate) {
+        expect($candidate->current()->id)->toEqual($this->candidate->id);
 
-        return $tenant->id;
+        return $candidate->id;
     });
-    expect($tenant->current())->toBeNull();
+    
+    expect($this->candidate->current())->toBeNull();
 
     $response = $callback();
 
-    expect($tenant->current())->toBeNull();
+    expect($this->candidate->current())->toBeNull();
 
-    expect($this->tenant->id)->toBe($response);
+    expect($this->candidate->id)->toBe($response);
 });

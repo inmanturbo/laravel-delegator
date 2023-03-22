@@ -19,26 +19,8 @@ class Delegation
 
     public function start(): void
     {
-        $this->bindTenantModelClass()
-            ->registerCandidateFinderCollection()
-            ->configureRequests()
-            ->configureQueue();
-    }
-
-    protected function configureQueue(): self
-    {
-        if($tenant = $this->determineWhichCandidateIsBeingUsedAsTenant())
-        {
-            $this
-                ->getDelegatorActionClass(
-                    candidateConfigKey: $tenant,
-                    actionName: 'make_queue_tenant_aware_action',
-                    actionClass: MakeQueueTenantAwareAction::class
-                    )
-                    ->execute();
-            }
-
-        return $this;
+        $this->registerCandidateFinderCollection()
+            ->configureRequests();
     }
 
     protected function registerCandidateFinderCollection(): self
@@ -78,22 +60,5 @@ class Delegation
     protected function getCandidateFinderClassNames(): array
     {
         return collect($this->app['config']['delegator']['candidates'])->pluck('candidate_finder')->toArray();
-    }
-
-    protected function bindTenantModelClass(): self
-    {
-        $this->app->bind(
-            abstract: Tenant::class, 
-            concrete: fn () => new (
-                $this->app['config']
-                ['delegator']
-                ['candidates']
-                [$this->determineWhichCandidateIsBeingUsedAsTenant()]
-                ['model']
-            ),
-            shared: false
-        );
-
-        return $this;
     }
 }

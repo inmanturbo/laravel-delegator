@@ -13,8 +13,8 @@ trait CandidateAware
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $candidateConfigKeys = $this->argument('candidateKey') ? 
-            Arr::wrap($this->argument('candidateKey')) : 
+        $candidateConfigKeys = $this->argument('candidateConfigKey') ? 
+            Arr::wrap($this->argument('candidateConfigKey')) : 
             array_keys(config('delegator.candidates'));
         
         $candidates = Arr::wrap($this->option('candidates'));
@@ -26,7 +26,7 @@ trait CandidateAware
 
     protected function executeForCandidate($candidateConfigKey, $candidates)
     {
-        $this->candidateKey = $candidateConfigKey;
+        $this->candidateConfigKey = $candidateConfigKey;
 
         $candidateQuery = $this->getCandidateModel($candidateConfigKey)::query()
             ->when(! blank($candidates), function ($query) use ($candidates) {

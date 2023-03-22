@@ -12,13 +12,12 @@ trait UsesDelegatorConfig
         return config('delegator.delegator_database_connection_name') ?? config('database.default');
     }
 
-    public function getCandidateDatabaseConnectionName(string $candidateConfigKey): ?string
+    public function candidateDatabaseConnectionName(string $candidateConfigKey): ?string
     {
-        return 'sqlite3';
         return config("delegator.candidates.{$candidateConfigKey}.candidate_database_connection_name") ?? config('database.default');
     }
 
-    public static function getCurrentCandidateContainerKey($candidateConfigKey): string
+    public static function currentCandidateContainerKey($candidateConfigKey): string
     {
         return config("delegator.candidates.{$candidateConfigKey}.current_candidate_container_key");
     }
@@ -46,25 +45,5 @@ trait UsesDelegatorConfig
     public function getCandidateArtisanSearchFields($candidateConfigKey): array
     {
         return Arr::wrap(config("delegator.candidates.{$candidateConfigKey}.candidate_artisan_search_fields"));
-    }
-
-    protected function determineWhichCandidateIsBeingUsedAsTenant()
-    {
-        $candidates = config('delegator.candidates');
-
-        if(!is_array($candidates) || count($candidates) === 0) {
-            return null;
-        }
-
-        if($tenant = config('delegator.tenant')) {
-            if(!array_key_exists($tenant, $candidates)) {
-                throw InvalidConfiguration::tenantSetToUnconfiguredCandidate($tenant);
-            }
-            return $tenant;
-        }
-
-        return Arr::first(
-            array_keys($candidates
-        ));
     }
 }

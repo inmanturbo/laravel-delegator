@@ -42,7 +42,7 @@ trait HasCandidateMethods
 
     public static function current(): ?static
     {
-        $currentCandidateContainerKey = static::getCurrentCandidateContainerKey(
+        $currentCandidateContainerKey = static::currentCandidateContainerKey(
             static::getCandidateConfigKey()
         );
 

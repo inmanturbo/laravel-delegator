@@ -11,6 +11,6 @@ trait UsesCandidateConnection
 
     public function getConnectionName()
     {
-        return $this->getCandidateDatabaseConnectionName($this->getCandidateConfigKey());
+        return $this->candidateDatabaseConnectionName($this->getCandidateConfigKey());
     }
 }

@@ -5,9 +5,7 @@ namespace Inmanturbo\Delegator\Actions;
 use Inmanturbo\Delegator\Concerns\UsesDelegatorConfig;
 use Inmanturbo\Delegator\Contracts\SwitchCandidateTask;
 use Inmanturbo\Delegator\Events\MadeCandidateCurrentEvent;
-use Inmanturbo\Delegator\Events\MadeTenantCurrentEvent;
 use Inmanturbo\Delegator\Events\MakingCandidateCurrentEvent;
-use Inmanturbo\Delegator\Events\MakingTenantCurrentEvent;
 use Inmanturbo\Delegator\Models\Contracts\CandidateModel;
 use Inmanturbo\Delegator\Tasks\TasksCollection;
 
@@ -25,18 +23,14 @@ class MakeCandidateCurrentAction
 
     public function execute(CandidateModel $candidate)
     {
-        $candidate->getCandidateConfigKey() === $this->determineWhichCandidateIsBeingUsedAsTenant()
-            ? event(new MakingTenantCurrentEvent($candidate))
-            : event(new MakingCandidateCurrentEvent($candidate));
+        event(new MakingCandidateCurrentEvent($candidate));
             
 
         $this
             ->performTasksToMakeCandidateCurrent($candidate)
             ->bindAsCurrentCandidate($candidate);
 
-        $candidate->getCandidateConfigKey() === $this->determineWhichCandidateIsBeingUsedAsTenant()
-            ? event(new MadeTenantCurrentEvent($candidate))
-            : event(new MadeCandidateCurrentEvent($candidate));
+        event(new MadeCandidateCurrentEvent($candidate));
 
         return $this;
     }

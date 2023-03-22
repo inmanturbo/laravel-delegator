@@ -53,7 +53,6 @@ class TestCase extends Orchestra
         ]);
 
         config()->set('delegator.delegator_database_connection_name', 'delegator');
-        config()->set('delegator.tenant', 'team');
 
         config()->set('delegator.candidates', [
 
@@ -63,11 +62,11 @@ class TestCase extends Orchestra
                     'id',
                 ],
                 'switch_candidate_tasks' => [
-                    \Inmanturbo\Delegator\Tasks\SwitchCandidateTeamDatabaseTask::class,
+                    // \Inmanturbo\Delegator\Tasks\SwitchCandidateDatabaseTask::class,
                 ],
                 'model' => \Inmanturbo\Delegator\Tests\TestClasses\Team::class,
-                'queues_are_tenant_aware_by_default' => true,
-                'candidate_database_connection_name' => 'team_sqlite',
+                'queues_are_tenant_aware_by_default' => false,
+                'candidate_database_connection_name' => null,
                 'current_candidate_container_key' => 'currentTeam',
                 'actions' => [
                     'make_current_action' => \Inmanturbo\Delegator\Actions\MakeCandidateCurrentAction::class,
@@ -91,8 +90,7 @@ class TestCase extends Orchestra
                     // \Inmanturbo\Delegator\Tasks\SwitchCandidateTeamDatabaseTask::class,
                 ],
                 'model' => \Inmanturbo\Delegator\Tests\TestClasses\Team::class,
-                'queues_are_tenant_aware_by_default' => false,
-                'candidate_database_connection_name' => 'team_sqlite',
+                'candidate_database_connection_name' => 'team_mysql',
                 'current_candidate_container_key' => 'currentTeamDatabase',
                 'actions' => [
                     'make_current_action' => \Inmanturbo\Delegator\Actions\MakeCandidateCurrentAction::class,

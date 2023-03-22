@@ -2,22 +2,18 @@
 
 namespace Inmanturbo\Delegator;
 
-use Inmanturbo\Delegator\Models\Contracts\Tenant;
-
 class Delegator
 {
 
     public static function execute(callable $callable)
     {
-        $tenantService = app(Tenant::class);
+        $candidateModels = collect(config('delegator.candidates'))->pluck('model')->map(fn ($candidate) => $candidate::current());
 
-        $originalCurrentTenant = $tenantService->current();
-
-        $tenantService->forgetCurrent();
+        $candidateModels->each(fn ($candidate) => $candidate?->forgetCurrent());
 
         $result = $callable();
 
-        $originalCurrentTenant?->makeCurrent();
+        $candidateModels->each(fn ($candidate) => $candidate?->makeCurrent());
 
         return $result;
     } 

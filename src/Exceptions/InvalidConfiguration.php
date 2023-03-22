@@ -11,7 +11,7 @@ class InvalidConfiguration extends Exception
         return new static("Could not find a tenant connection named `{$expectedConnectionName}`. Make sure to create a connection with that name in the `connections` key of the `database` config file.");
     }
 
-    public static function candidateConnectionIsEmptyOrEqualsToLandlordConnection($candidateConfigKey): self
+    public static function candidateConnectionIsEmptyOrEqualsToDelegatorConnection($candidateConfigKey): self
     {
         return new static("`SwitchCandidateDatabaseTask` fails because the `delegator.candidates.{$candidateConfigKey}.candidate_database_connection_name` key in the `delegator` config file is empty or equals to the `delegator.delegator_database_connection_name` key in the `delegator` config file.");
     }

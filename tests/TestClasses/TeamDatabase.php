@@ -23,4 +23,9 @@ class TeamDatabase extends Model implements CandidateModel
     {
         return \Inmanturbo\Delegator\Tests\Database\Factories\TeamDatabaseFactory::new();
     }
+
+    public function getDatabaseName(): ?string
+    {
+        return $this->name;
+    }
 }

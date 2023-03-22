@@ -5,9 +5,7 @@ namespace Inmanturbo\Delegator\Actions;
 use Inmanturbo\Delegator\Concerns\UsesDelegatorConfig;
 use Inmanturbo\Delegator\Contracts\SwitchCandidateTask;
 use Inmanturbo\Delegator\Events\ForgettingCurrentCandidateEvent;
-use Inmanturbo\Delegator\Events\ForgettingCurrentTenantEvent;
 use Inmanturbo\Delegator\Events\ForgotCurrentCandidateEvent;
-use Inmanturbo\Delegator\Events\ForgotCurrentTenantEvent;
 use Inmanturbo\Delegator\Models\Contracts\CandidateModel;
 use Inmanturbo\Delegator\Tasks\TasksCollection;
 
@@ -27,17 +25,13 @@ class ForgetCurrentCandidateAction
     {
         $candidateConfigKey = $candidate::getCandidateConfigKey();
 
-        $candidate->getCandidateConfigKey() === $this->determineWhichCandidateIsBeingUsedAsTenant()
-            ? event(new ForgettingCurrentTenantEvent($candidate))
-            : event(new ForgettingCurrentCandidateEvent($candidate));
+        event(new ForgettingCurrentCandidateEvent($candidate));
 
         $this
             ->performTaskToForgetCurrentCandidate($candidateConfigKey)
             ->clearBoundCurrentCandidate($candidate);
 
-        $candidate->getCandidateConfigKey() === $this->determineWhichCandidateIsBeingUsedAsTenant()
-            ? event(new ForgotCurrentTenantEvent($candidate))
-            : event(new ForgotCurrentCandidateEvent($candidate));
+        event(new ForgotCurrentCandidateEvent($candidate));
     }
 
     protected function performTaskToForgetCurrentCandidate($candidateConfigKey): self

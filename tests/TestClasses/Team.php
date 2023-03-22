@@ -5,13 +5,13 @@ namespace Inmanturbo\Delegator\Tests\TestClasses;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Inmanturbo\Delegator\Models\Concerns\HasCandidateMethods;
 use Inmanturbo\Delegator\Models\Concerns\UsesDelegatorConnection;
-use Inmanturbo\Delegator\Models\Contracts\Tenant;
+use Inmanturbo\Delegator\Models\Contracts\CandidateModel;
 use Laravel\Jetstream\Events\TeamCreated;
 use Laravel\Jetstream\Events\TeamDeleted;
 use Laravel\Jetstream\Events\TeamUpdated;
 use Laravel\Jetstream\Team as JetstreamTeam;
 
-class Team extends JetstreamTeam implements Tenant
+class Team extends JetstreamTeam implements CandidateModel
 {
     use HasFactory, HasCandidateMethods, UsesDelegatorConnection;
 
@@ -39,7 +39,7 @@ class Team extends JetstreamTeam implements Tenant
 
     public function getDatabaseName(): string
     {
-        return $this->database->name;
+        return $this->teamDatabase->name;
     }
 
     public function teamDatabase()

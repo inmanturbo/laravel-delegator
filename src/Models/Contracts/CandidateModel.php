@@ -23,4 +23,6 @@ interface CandidateModel
     public function forget(): static;
 
     public function execute(callable $callable);
+
+    public function getDatabaseName(): ?string;
 }
