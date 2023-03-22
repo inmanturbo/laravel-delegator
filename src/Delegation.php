@@ -2,12 +2,10 @@
 
 namespace Inmanturbo\Delegator;
 
-use Inmanturbo\Delegator\Actions\MakeQueueTenantAwareAction;
 use Inmanturbo\Delegator\CandidateFinder\CandidateFinderCollection;
 use Inmanturbo\Delegator\Concerns\UsesDelegatorConfig;
 use Inmanturbo\Delegator\Contracts\CandidateFinder;
 use Illuminate\Contracts\Foundation\Application;
-use Inmanturbo\Delegator\Models\Contracts\Tenant;
 
 class Delegation
 {

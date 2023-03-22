@@ -1,6 +1,6 @@
 <?php
 
-namespace Inmanturbo\Delegator\Contracts;
+namespace Inmanturbo\Delegator\CandidateFinder\Contracts;
 
 use Inmanturbo\Delegator\Models\Contracts\CandidateModel;
 use Illuminate\Http\Request;

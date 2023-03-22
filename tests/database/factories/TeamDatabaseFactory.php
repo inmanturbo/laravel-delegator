@@ -26,6 +26,7 @@ class TeamDatabaseFactory extends Factory
     {
         return [
             'name' => str($this->faker->name)->slug('_'),
+            'domain' => $this->faker->domainName,
             'uuid' => $this->faker->uuid,
             'driver' => 'sqlite',
             'user_id' => null,
