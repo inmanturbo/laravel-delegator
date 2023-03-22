@@ -89,7 +89,7 @@ class TestCase extends Orchestra
                 'switch_candidate_tasks' => [
                     // \Inmanturbo\Delegator\Tasks\SwitchCandidateTeamDatabaseTask::class,
                 ],
-                'model' => \Inmanturbo\Delegator\Tests\TestClasses\Team::class,
+                'model' => \Inmanturbo\Delegator\Tests\TestClasses\TeamDatabase::class,
                 'candidate_database_connection_name' => 'team_mysql',
                 'current_candidate_container_key' => 'currentTeamDatabase',
                 'actions' => [

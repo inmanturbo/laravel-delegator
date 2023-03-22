@@ -3,11 +3,13 @@
 namespace Inmanturbo\Delegator\Commands\Concerns;
 
 use Illuminate\Support\Arr;
+use Inmanturbo\Delegator\Concerns\UsesDelegatorConfig;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 trait CandidateAware
 {
+    use UsesDelegatorConfig;
 
     protected $candidateConfigKey;
 
@@ -29,8 +31,8 @@ trait CandidateAware
         $this->candidateConfigKey = $candidateConfigKey;
 
         $candidateQuery = $this->getCandidateModel($candidateConfigKey)::query()
-            ->when(! blank($candidates), function ($query) use ($candidates) {
-                collect($this->getTenantArtisanSearchFields())
+            ->when(! blank($candidates), function ($query) use ($candidates, $candidateConfigKey) {
+                collect($this->getCandidateArtisanSearchFields($candidateConfigKey))
                     ->each(fn ($field) => $query->orWhereIn($field, $candidates));
             });
 
@@ -50,6 +52,4 @@ trait CandidateAware
     {
         return config("delegator.candidates.{$candidateConfigKey}.model");
     }
-
-
 }
