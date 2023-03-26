@@ -4,8 +4,8 @@ namespace Inmanturbo\Delegator\Models\Concerns;
 
 use Inmanturbo\Delegator\Actions\ForgetCurrentCandidateAction;
 use Inmanturbo\Delegator\Actions\MakeCandidateCurrentAction;
-use Inmanturbo\Delegator\Models\CandidateCollection;
 use Inmanturbo\Delegator\Concerns\UsesDelegatorConfig;
+use Inmanturbo\Delegator\Models\CandidateCollection;
 
 trait HasCandidateMethods
 {
