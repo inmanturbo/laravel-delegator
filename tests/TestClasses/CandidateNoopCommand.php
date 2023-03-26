@@ -15,6 +15,6 @@ class CandidateNoopCommand extends Command
 
     public function handle()
     {
-        $this->line('Candidate ID is '. TeamDatabase::current()->id);
+        $this->line('Candidate ID is '.TeamDatabase::current()->id);
     }
 }

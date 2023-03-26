@@ -2,8 +2,8 @@
 
 namespace Inmanturbo\Delegator\Concerns;
 
-use Inmanturbo\Delegator\Exceptions\InvalidConfiguration;
 use Illuminate\Support\Arr;
+use Inmanturbo\Delegator\Exceptions\InvalidConfiguration;
 
 trait UsesDelegatorConfig
 {
@@ -22,7 +22,7 @@ trait UsesDelegatorConfig
         return config("delegator.candidates.{$candidateConfigKey}.current_candidate_container_key");
     }
 
-    public function getDelegatorActionClass(string $candidateConfigKey, string $actionName, string $actionClass, ... $params)
+    public function getDelegatorActionClass(string $candidateConfigKey, string $actionName, string $actionClass, ...$params)
     {
         $configuredClass = config("delegator.candidates.{$candidateConfigKey}.actions.{$actionName}") ?? $actionClass;
 

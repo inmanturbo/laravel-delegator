@@ -5,11 +5,11 @@ use Inmanturbo\Delegator\Exceptions\InvalidConfiguration;
 use Inmanturbo\Delegator\Tests\TestClasses\TeamDatabase;
 use Inmanturbo\Delegator\Tests\TestClasses\User;
 
-beforeEach(function(){
+beforeEach(function () {
     setupDatabaseInfrastructure($this);
 });
 
-afterEach(function(){
+afterEach(function () {
     tearDownDatabaseInfrastructure($this);
 });
 

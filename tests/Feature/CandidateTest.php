@@ -2,15 +2,10 @@
 
 use Illuminate\Support\Facades\Event;
 use Inmanturbo\Delegator\Events\ForgettingCurrentCandidateEvent;
-use Inmanturbo\Delegator\Events\ForgettingCurrentTenantEvent;
 use Inmanturbo\Delegator\Events\ForgotCurrentCandidateEvent;
-use Inmanturbo\Delegator\Events\ForgotCurrentTenantEvent;
 use Inmanturbo\Delegator\Events\MadeCandidateCurrentEvent;
-use Inmanturbo\Delegator\Events\MadeTenantCurrentEvent;
 use Inmanturbo\Delegator\Events\MakingCandidateCurrentEvent;
-use Inmanturbo\Delegator\Events\MakingTenantCurrentEvent;
 use Inmanturbo\Delegator\Models\Contracts\CandidateModel;
-use Inmanturbo\Delegator\Models\Contracts\Tenant;
 use Inmanturbo\Delegator\Tests\TestClasses\Team;
 use Inmanturbo\Delegator\Tests\TestClasses\TeamDatabase;
 
@@ -32,9 +27,7 @@ it('can get a current candidate', function () {
     expect(TeamDatabase::current())->toBe($this->candidate);
 });
 
-
 it('will bind a current candidate to the container', function () {
-
     expect(app()->has($this->containerKey))->toBeFalse();
 
     $this->candidate->makeCurrent();
@@ -71,7 +64,7 @@ it('can check if a particular candidate is the current one', function () {
     /** @var \Inmanturbo\Delegator\Models\Contracts\CandidateModel $candidate */
     $candidate = TeamDatabase::factory()->create();
 
-     /** @var \Inmanturbo\Delegator\Models\Contracts\CandidateModel $anotherCandidate */
+    /** @var \Inmanturbo\Delegator\Models\Contracts\CandidateModel $anotherCandidate */
     $anotherCandidate = TeamDatabase::factory()->create();
 
     expect($candidate->isCurrent())->toBeFalse()
@@ -102,7 +95,7 @@ it('will fire off events when making a candidate current', function () {
     Event::assertDispatched(MadeCandidateCurrentEvent::class);
 });
 
-it('will fire off events when forgetting the current candidate', function() {
+it('will fire off events when forgetting the current candidate', function () {
     Event::fake();
 
     $this->candidate->makeCurrent();
@@ -116,7 +109,7 @@ it('will fire off events when forgetting the current candidate', function() {
     Event::assertDispatched(ForgotCurrentCandidateEvent::class);
 });
 
-it('will not fire off events when forgetting a current candidate when not current candidate is set', function() {
+it('will not fire off events when forgetting a current candidate when not current candidate is set', function () {
     Event::fake();
 
     TeamDatabase::forgetCurrent();
@@ -142,7 +135,6 @@ it('will execute a callable and then restore the previous state', function () {
 });
 
 it('will execute a delayed callback in tenant context', function () {
-
     $this->candidate->makeCurrent();
     $this->candidate->forgetCurrent();
 
@@ -153,7 +145,7 @@ it('will execute a delayed callback in tenant context', function () {
 
         return $candidate->id;
     });
-    
+
     expect($this->candidate->current())->toBeNull();
 
     $response = $callback();

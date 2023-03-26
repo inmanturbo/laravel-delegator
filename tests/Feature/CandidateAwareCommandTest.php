@@ -5,7 +5,7 @@ use Inmanturbo\Delegator\Tests\TestClasses\TeamDatabase;
 
 beforeEach(function () {
     setupDatabaseInfrastructure($this);
-    
+
     $this->tenant->makeCurrent();
     Schema::connection('team_mysql')->dropIfExists('migrations');
 
@@ -24,10 +24,10 @@ it('fails with a non-existing candidate')
     ->assertExitCode(-1)
     ->expectsOutput('No candidates(s) found.');
 
-    it('works with no candidate parameters', function () {
-        $this
-            ->artisan('candidate:noop')
-            ->assertExitCode(0)
-            ->expectsOutput('Candidate ID is ' . $this->tenant->id)
-            ->expectsOutput('Candidate ID is ' . $this->anotherTenant->id);
-    });
+it('works with no candidate parameters', function () {
+    $this
+        ->artisan('candidate:noop')
+        ->assertExitCode(0)
+        ->expectsOutput('Candidate ID is '.$this->tenant->id)
+        ->expectsOutput('Candidate ID is '.$this->anotherTenant->id);
+});

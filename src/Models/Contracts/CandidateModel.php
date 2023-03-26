@@ -6,7 +6,7 @@ use Inmanturbo\Delegator\Collections\CandidateCollection;
 
 interface CandidateModel
 {
-    public function getDelegatorActionClass(string $candidateConfigKey, string $actionName, string $actionClass, ... $params);
+    public function getDelegatorActionClass(string $candidateConfigKey, string $actionName, string $actionClass, ...$params);
 
     public static function getCandidateConfigKey(): string;
 

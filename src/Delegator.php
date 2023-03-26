@@ -4,7 +4,6 @@ namespace Inmanturbo\Delegator;
 
 class Delegator
 {
-
     public static function execute(callable $callable)
     {
         $candidateModels = collect(config('delegator.candidates'))->pluck('model')->map(fn ($candidate) => $candidate::current());
@@ -16,5 +15,5 @@ class Delegator
         $candidateModels->each(fn ($candidate) => $candidate?->makeCurrent());
 
         return $result;
-    } 
+    }
 }
