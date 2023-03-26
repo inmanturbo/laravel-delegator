@@ -34,7 +34,7 @@ class DelegatorServiceProvider extends PackageServiceProvider
             return;
         }
 
-        Event::listen(fn (OctaneRequestReceived $requestReceived) => app(Delegator::class)->start());
-        Event::listen(fn (OctaneRequestTerminated $requestTerminated) => app(Delegator::class)->end());
+        Event::listen(fn (OctaneRequestReceived $requestReceived) => app(Delegation::class)->start());
+        Event::listen(fn (OctaneRequestTerminated $requestTerminated) => app(Delegation::class)->end());
     }
 }

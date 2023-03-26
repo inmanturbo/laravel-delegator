@@ -7,6 +7,12 @@ use Inmanturbo\Delegator\Models\Contracts\CandidateModel;
 
 class CandidateCollection extends Collection
 {
+
+    final public function __construct($items = [])
+    {
+        parent::__construct($items);
+    }
+
     public function eachCurrent(callable $callable): self
     {
         return $this->performCollectionMethodWhileMakingCandidatesCurrent(

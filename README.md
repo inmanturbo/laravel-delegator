@@ -43,7 +43,7 @@ return [
         //     * This class is responsible for determining which candidate should be current
         //     * for the given request.
         //     *
-        //     * This class must implement the `Inmanturbo\Delegator\Contracts\CandidateFinder` interface.
+        //     * This class must implement the `Inmanturbo\Delegator\CandidateFinder\Contracts\CandidateFinder` interface.
         //     *
         //     */
         //     'candidate_finder' => null,

@@ -5,7 +5,7 @@ namespace Inmanturbo\Delegator\Exceptions;
 use Exception;
 use Illuminate\Queue\Events\JobProcessing;
 
-class CurrentTenantCouldNotBeDeterminedInTenantAwareJob extends Exception
+final class CurrentTenantCouldNotBeDeterminedInTenantAwareJob extends Exception
 {
     public static function noIdSet(JobProcessing $event)
     {

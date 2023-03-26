@@ -3,8 +3,7 @@
 namespace Inmanturbo\Delegator\Exceptions;
 
 use Exception;
-
-class InvalidConfiguration extends Exception
+final class InvalidConfiguration extends Exception
 {
     public static function candidateConnectionDoesNotExist(string $expectedConnectionName): self
     {

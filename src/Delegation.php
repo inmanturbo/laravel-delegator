@@ -2,10 +2,11 @@
 
 namespace Inmanturbo\Delegator;
 
-use Inmanturbo\Delegator\CandidateFinder\CandidateFinderCollection;
-use Inmanturbo\Delegator\Concerns\UsesDelegatorConfig;
-use Inmanturbo\Delegator\Contracts\CandidateFinder;
 use Illuminate\Contracts\Foundation\Application;
+use Inmanturbo\Delegator\Concerns\UsesDelegatorConfig;
+use Inmanturbo\Delegator\Models\Contracts\CandidateModel;
+use Inmanturbo\Delegator\CandidateFinder\CandidateFinderCollection;
+use Inmanturbo\Delegator\CandidateFinder\Contracts\CandidateFinder;
 
 class Delegation
 {
@@ -19,6 +20,13 @@ class Delegation
     {
         $this->registerCandidateFinderCollection()
             ->configureRequests();
+    }
+
+    public function end(): void
+    {
+        collect($this->app['config']['delegator']['candidates'])
+            ->pluck('model')
+            ->each(fn (CandidateModel $candidate) => $candidate::forgetCurrent());
     }
 
     protected function registerCandidateFinderCollection(): self
