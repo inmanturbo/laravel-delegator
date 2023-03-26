@@ -2,7 +2,7 @@
 
 namespace Inmanturbo\Delegator\Models\Contracts;
 
-use Inmanturbo\Delegator\Collections\CandidateCollection;
+use Inmanturbo\Delegator\Models\CandidateCollection;
 
 interface CandidateModel
 {

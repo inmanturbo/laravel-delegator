@@ -1,6 +1,6 @@
 <?php
 
-namespace Inmanturbo\Delegator\Collections;
+namespace Inmanturbo\Delegator\Models;
 
 use Illuminate\Database\Eloquent\Collection;
 use Inmanturbo\Delegator\Models\Contracts\CandidateModel;
