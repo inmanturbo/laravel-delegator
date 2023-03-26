@@ -8,6 +8,6 @@ class ForgettingCurrentCandidateEvent
 {
     public function __construct(
         public CandidateModel $candidate,
-    ){
+    ) {
     }
 }

@@ -4,7 +4,6 @@ namespace Inmanturbo\Delegator\Models\Concerns;
 
 trait GetsCandidateConfigKey
 {
-
     public static function getCandidateConfigKey(): string
     {
         $candidateModelClass = (new static)->getCandidateModelClass();

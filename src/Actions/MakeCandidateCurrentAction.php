@@ -3,10 +3,10 @@
 namespace Inmanturbo\Delegator\Actions;
 
 use Inmanturbo\Delegator\Concerns\UsesDelegatorConfig;
-use Inmanturbo\Delegator\Tasks\Contracts\SwitchCandidateTask;
 use Inmanturbo\Delegator\Events\MadeCandidateCurrentEvent;
 use Inmanturbo\Delegator\Events\MakingCandidateCurrentEvent;
 use Inmanturbo\Delegator\Models\Contracts\CandidateModel;
+use Inmanturbo\Delegator\Tasks\Contracts\SwitchCandidateTask;
 use Inmanturbo\Delegator\Tasks\TasksCollection;
 
 class MakeCandidateCurrentAction
@@ -24,7 +24,6 @@ class MakeCandidateCurrentAction
     public function execute(CandidateModel $candidate)
     {
         event(new MakingCandidateCurrentEvent($candidate));
-            
 
         $this
             ->performTasksToMakeCandidateCurrent($candidate)

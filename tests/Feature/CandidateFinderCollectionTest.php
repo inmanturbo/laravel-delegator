@@ -6,7 +6,7 @@ use Inmanturbo\Delegator\Tests\TestClasses\TeamDatabase;
 
 it('will instantiate all class names', function () {
     $finderCollection = new CandidateFinderCollection([
-        DomainCandidateFinder::class => [ 'candidateModel' => TeamDatabase::class ]
+        DomainCandidateFinder::class => ['candidateModel' => TeamDatabase::class],
     ]);
 
     expect($finderCollection->first())->toBeInstanceOf(DomainCandidateFinder::class);

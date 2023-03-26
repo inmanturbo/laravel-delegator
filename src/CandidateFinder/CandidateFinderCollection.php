@@ -21,12 +21,12 @@ class CandidateFinderCollection extends Collection
                 $candidateParameters = [];
             }
 
-            $instance = app()->makeWith($candidateClass, $candidateParameters);;
+            $instance = app()->makeWith($candidateClass, $candidateParameters);
 
             $reflection = new \ReflectionClass($instance);
 
             // make sure the class implements the CandidateFinder interface
-            if (!$reflection->implementsInterface(CandidateFinder::class)) {
+            if (! $reflection->implementsInterface(CandidateFinder::class)) {
                 throw new \Exception("Class {$candidateClass} does not implement the CandidateFinder interface");
             }
 

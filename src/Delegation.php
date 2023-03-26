@@ -3,10 +3,10 @@
 namespace Inmanturbo\Delegator;
 
 use Illuminate\Contracts\Foundation\Application;
-use Inmanturbo\Delegator\Concerns\UsesDelegatorConfig;
-use Inmanturbo\Delegator\Models\Contracts\CandidateModel;
 use Inmanturbo\Delegator\CandidateFinder\CandidateFinderCollection;
 use Inmanturbo\Delegator\CandidateFinder\Contracts\CandidateFinder;
+use Inmanturbo\Delegator\Concerns\UsesDelegatorConfig;
+use Inmanturbo\Delegator\Models\Contracts\CandidateModel;
 
 class Delegation
 {
@@ -31,7 +31,6 @@ class Delegation
 
     protected function registerCandidateFinderCollection(): self
     {
-
         $this->app->singleton(CandidateFinderCollection::class, function () {
             return new CandidateFinderCollection(
                 $this->getCandidateFinderClassNames()
@@ -53,7 +52,7 @@ class Delegation
     protected function determineCurrentCandidates(): void
     {
         $this->app->make(CandidateFinderCollection::class)->each(function (CandidateFinder $candidateFinder) {
-            if(! in_array(get_class($candidateFinder), $this->getCandidateFinderClassNames())) {
+            if (! in_array(get_class($candidateFinder), $this->getCandidateFinderClassNames())) {
                 return;
             }
 

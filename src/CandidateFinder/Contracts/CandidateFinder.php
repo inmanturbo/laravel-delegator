@@ -2,8 +2,8 @@
 
 namespace Inmanturbo\Delegator\CandidateFinder\Contracts;
 
-use Inmanturbo\Delegator\Models\Contracts\CandidateModel;
 use Illuminate\Http\Request;
+use Inmanturbo\Delegator\Models\Contracts\CandidateModel;
 
 interface CandidateFinder
 {

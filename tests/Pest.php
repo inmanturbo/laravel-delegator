@@ -7,19 +7,19 @@ use Inmanturbo\Delegator\Models\Contracts\CandidateModel;
 use Inmanturbo\Delegator\Tasks\SwitchCandidateDatabaseTask;
 use Inmanturbo\Delegator\Tests\TestCase;
 use Inmanturbo\Delegator\Tests\TestClasses\TeamDatabase;
-use Spatie\Docker\DockerContainer;
-
 use function PHPUnit\Framework\assertFalse;
 use function PHPUnit\Framework\assertTrue;
+use Spatie\Docker\DockerContainer;
 
 uses(TestCase::class)->in(__DIR__);
 
 function tempFile(string $fileName): string
 {
-    return __DIR__ . "/temp/{$fileName}";
+    return __DIR__."/temp/{$fileName}";
 }
 
-function setupDatabaseInfrastructure($test){
+function setupDatabaseInfrastructure($test)
+{
     if (! `which mysql`) {
         $test->fail('MySQL client is not installed');
     }
@@ -66,7 +66,8 @@ function setupDatabaseInfrastructure($test){
     config()->set('database.default', 'team_mysql');
 }
 
-function tearDownDatabaseInfrastructure($test){
+function tearDownDatabaseInfrastructure($test)
+{
     $test->containerInstance->stop();
 }
 

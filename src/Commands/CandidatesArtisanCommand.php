@@ -2,13 +2,12 @@
 
 namespace Inmanturbo\Delegator\Commands;
 
-use Inmanturbo\Delegator\Commands\Concerns\CandidateAware;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Artisan;
+use Inmanturbo\Delegator\Commands\Concerns\CandidateAware;
 
 class CandidatesArtisanCommand extends Command
 {
-
     use CandidateAware;
 
     /**
@@ -30,7 +29,6 @@ class CandidatesArtisanCommand extends Command
      */
     public function handle(): void
     {
-
         if (! $artisanCommand = $this->argument('artisanCommand')) {
             $artisanCommand = $this->ask('Which artisan command do you want to run for all candidates?');
         }
@@ -43,7 +41,7 @@ class CandidatesArtisanCommand extends Command
 
         $this->line('');
         $this->info("Running command for candidate `{$candidate->name}` (id: {$candidate->getKey()})...");
-        $this->line("---------------------------------------------------------");
+        $this->line('---------------------------------------------------------');
 
         Artisan::call($artisanCommand, [], $this->output);
     }

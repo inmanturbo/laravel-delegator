@@ -4,9 +4,9 @@ namespace Inmanturbo\Delegator\Tests;
 
 use Illuminate\Console\Application as Artisan;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Orchestra\Testbench\TestCase as Orchestra;
 use Inmanturbo\Delegator\DelegatorServiceProvider;
 use Inmanturbo\Delegator\Tests\TestClasses\CandidateNoopCommand;
+use Orchestra\Testbench\TestCase as Orchestra;
 
 class TestCase extends Orchestra
 {

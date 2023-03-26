@@ -65,7 +65,7 @@ trait HasCandidateMethods
 
     public static function forgetCurrent(): ?static
     {
-        $current= static::current();
+        $current = static::current();
 
         if (is_null($current)) {
             return null;

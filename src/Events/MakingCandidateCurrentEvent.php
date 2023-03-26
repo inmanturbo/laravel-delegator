@@ -8,6 +8,6 @@ class MakingCandidateCurrentEvent
 {
     public function __construct(
         public CandidateModel $candidate,
-    ){
+    ) {
     }
 }
