@@ -5,7 +5,7 @@
 [![GitHub Code Style Action Status](https://github.com/inmanturbo/laravel-delegator/actions/workflows/fix-php-code-style-issues.yml/badge.svg)](https://github.com/inmanturbo/laravel-delegator/actions/workflows/fix-php-code-style-issues.yml)
 [![Total Downloads](https://img.shields.io/packagist/dt/inmanturbo/laravel-delegator.svg?style=flat-square)](https://packagist.org/packages/inmanturbo/laravel-delegator)
 
-Similar to tenancy, however this package doesn't limit you to a single model class, or "tenant".   
+Similar to [spatie/laravel-multitenancy](https://github.com/spatie/laravel-multitenancy), however this package doesn't limit you to a single model class, or "tenant".   
 You can have a database model like `App\Models\TeamDatabase` or `App\Models\AppDatabase` that dynamically sets some config values (and any other action) when changed for the request, for example.
 And/or You can also do stuff when switching users, or when switching teams, etc.
 
@@ -144,7 +144,7 @@ Please review [our security policy](../../security/policy) on how to report secu
 
 - [inmanturbo](https://github.com/inmanturbo)
 - [All Contributors](../../contributors)
-- This package was heavily inspired by [spatie/larvel-multitenancy](https://github.com/spatie/laravel-multitenancy)
+- This package was heavily inspired by [spatie/laravel-multitenancy](https://github.com/spatie/laravel-multitenancy)
 
 ## License
 
