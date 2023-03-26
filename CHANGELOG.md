@@ -1,3 +1,7 @@
 # Changelog
 
 All notable changes to `laravel-delegator` will be documented in this file.
+
+## v1.0.0 - 2023-03-26
+
+**Full Changelog**: https://github.com/inmanturbo/laravel-delegator/commits/v1.0.0
