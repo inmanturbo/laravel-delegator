@@ -1,4 +1,4 @@
-# For models which require some config values to be changed when switching instances
+# For when you need to make some config changes when switching instances on a model, or when you need to track which instance of a model class is currently being used
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/inmanturbo/laravel-delegator.svg?style=flat-square)](https://packagist.org/packages/inmanturbo/laravel-delegator)
 [![GitHub Tests Action Status](https://github.com/inmanturbo/laravel-delegator/actions/workflows/run-tests.yml/badge.svg)](https://github.com/inmanturbo/laravel-delegator/actions/workflows/run-tests.yml)
