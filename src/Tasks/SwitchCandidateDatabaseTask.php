@@ -5,7 +5,7 @@ namespace Inmanturbo\Delegator\Tasks;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use Inmanturbo\Delegator\Concerns\UsesDelegatorConfig;
-use Inmanturbo\Delegator\Contracts\SwitchCandidateTask;
+use Inmanturbo\Delegator\Tasks\Contracts\SwitchCandidateTask;
 use Inmanturbo\Delegator\Exceptions\InvalidConfiguration;
 use Inmanturbo\Delegator\Models\Contracts\CandidateModel;
 

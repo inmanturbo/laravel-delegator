@@ -30,7 +30,7 @@ return [
         //     /*
         //     * These tasks will be performed when switching candidates.
         //     *
-        //     * A valid task is any class that implements the `Inmanturbo\Delegator\Contracts\SwitchCandidateTask` interface.
+        //     * A valid task is any class that implements the `Inmanturbo\Delegator\Tasks\Contracts\SwitchCandidateTask` interface.
         //     */
         //     'switch_candidate_tasks' => [
         //         \Inmanturbo\Delegator\Tasks\SwitchCandidateConfigTask::class,

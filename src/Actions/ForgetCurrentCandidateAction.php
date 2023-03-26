@@ -3,7 +3,7 @@
 namespace Inmanturbo\Delegator\Actions;
 
 use Inmanturbo\Delegator\Concerns\UsesDelegatorConfig;
-use Inmanturbo\Delegator\Contracts\SwitchCandidateTask;
+use Inmanturbo\Delegator\Tasks\Contracts\SwitchCandidateTask;
 use Inmanturbo\Delegator\Events\ForgettingCurrentCandidateEvent;
 use Inmanturbo\Delegator\Events\ForgotCurrentCandidateEvent;
 use Inmanturbo\Delegator\Models\Contracts\CandidateModel;

@@ -3,7 +3,7 @@
 namespace Inmanturbo\Delegator\Tests\TestClasses;
 
 use Illuminate\Cache\Repository;
-use Inmanturbo\Delegator\Contracts\SwitchCandidateTask;
+use Inmanturbo\Delegator\Tasks\Contracts\SwitchCandidateTask;
 use Inmanturbo\Delegator\Models\Contracts\CandidateModel;
 
 class DummyTask implements SwitchCandidateTask
